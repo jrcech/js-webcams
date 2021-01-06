@@ -12,6 +12,7 @@
     "modern-normalize": "^1.0.0",
     "sass": "^1.32.0",
     "sass-loader": "^10.1.0",
+    "select2": "^4.0.13",
     "stimulus": "^2.0.0",
     "style-loader": "^2.0.0",
     "webpack": "^5.11.1",

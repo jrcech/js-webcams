@@ -1,7 +1,12 @@
 @import 'node_modules/modern-normalize/modern-normalize';
 @import 'modules/frontend_test';
+@import 'node_modules/select2/dist/css/select2';
 
 iframe {
   width: 50%;
   height: 450px;
+}
+
+select {
+  width: 40%;
 }
