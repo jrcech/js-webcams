@@ -1,4 +1,5 @@
 import { Controller } from "stimulus";
+import safeHTML from 'html-template-tag';
 
 const axios = require("axios");
 
@@ -12,22 +13,25 @@ export default class extends Controller {
 
     axios({
       method: 'get',
-      url: 'https://api.windy.com/api/webcams/v2/list?show=webcams:image,location;categories',
-      data: {
-        lang: 'DE'
+      url: 'https://api.windy.com/api/webcams/v2/list',
+      params: {
+        show: 'webcams:image,location,player;categories'
       },
       headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
     })
     .then(function(response) {
       const webcams = response['data']['result']['webcams'];
 
+      console.log(response);
       console.log(webcams);
 
       webcams.forEach(webcam => {
-        let thumbnail = webcam['image']['current']['thumbnail'];
+        let title = webcam['title']
+        let player = webcam['player']['day']['embed'];
 
-        console.log(thumbnail);
-        let html = '<img src=' + thumbnail + ' alt="test">'
+        let html = safeHTML`<iframe src="${player}" title="${title}"></iframe>`
+        console.log(html);
+
         webcamsContainer.innerHTML += html;
       })
     })

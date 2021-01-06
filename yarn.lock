@@ -1509,6 +1509,18 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+html-es6cape@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/html-es6cape/-/html-es6cape-1.0.5.tgz#f3a437883b0594a01b175a6a2833090920b37d85"
+  integrity sha1-86Q3iDsFlKAbF1pqKDMJCSCzfYU=
+
+html-template-tag@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/html-template-tag/-/html-template-tag-3.2.0.tgz#d1c94a255d17fca28bd1d8e8f891e8065ee32e03"
+  integrity sha512-dt/21zLAVPBB3M4j6dCE46LyG8PcHHIUTYiBTIRDw1yg4nGaVbKEVHVsm3BpeJzlSB6n9BrcW6kP4zJE9mS3ew==
+  dependencies:
+    html-es6cape "^1.0.5"
+
 human-signals@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
