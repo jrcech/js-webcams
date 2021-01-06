@@ -13,7 +13,7 @@ export default class extends Controller {
 
     axios({
       method: 'get',
-      url: 'https://api.windy.com/api/webcams/v2/list',
+      url: 'https://api.windy.com/api/webcams/v2/list/category=beach/country=AU,',
       params: {
         show: 'webcams:image,location,player;categories'
       },
