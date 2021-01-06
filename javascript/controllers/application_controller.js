@@ -7,7 +7,8 @@ export default class extends Controller {
 
   connect() {
     console.log("connected")
-    this.webcamsTarget.textContent = "Stimulus loaded";
+
+    const webcamsContainer = this.webcamsTarget
 
     axios({
       method: 'get',
@@ -17,13 +18,23 @@ export default class extends Controller {
       },
       headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
     })
-    .then(function (response) {
-      console.log(response);
+    .then(function(response) {
+      const webcams = response['data']['result']['webcams'];
+
+      console.log(webcams);
+
+      webcams.forEach(webcam => {
+        let thumbnail = webcam['image']['current']['thumbnail'];
+
+        console.log(thumbnail);
+        let html = '<img src=' + thumbnail + ' alt="test">'
+        webcamsContainer.innerHTML += html;
+      })
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     })
-    .then(function () {
+    .then(function() {
       // always executed
     });
   }
