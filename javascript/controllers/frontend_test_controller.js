@@ -17,7 +17,5 @@ export default class extends Controller {
     } else {
       this.jqueryTestTarget.textContent = "jQuery loaded";
     }
-
-    $('[data-toggle="tooltip"]').tooltip();
   }
 }

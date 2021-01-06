@@ -6,6 +6,7 @@
     "@hotwired/turbo": "^7.0.0-beta.2",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.0.1",
+    "jquery": "^3.5.1",
     "sass": "^1.32.0",
     "sass-loader": "^10.1.0",
     "stimulus": "^2.0.0",

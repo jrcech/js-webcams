@@ -3,6 +3,7 @@ import { definitionsFromContext } from "stimulus/webpack-helpers";
 import Turbo from "@hotwired/turbo";
 
 import "./stylesheets";
+import "jquery";
 
 const application = Application.start();
 const context = require.context("./controllers", true, /\.js$/);
