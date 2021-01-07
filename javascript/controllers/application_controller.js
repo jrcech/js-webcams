@@ -31,8 +31,10 @@ export default class extends Controller {
     const selectedCategory = $('#category_select').val();
     const selectedCategoryQuery = selectedCategory ? `/category=${selectedCategory}` : ''
 
-    const webcamsContainer = this.webcamsTarget;
+    this._getWebcams(axios, selectedCountriesQuery, selectedCategoryQuery);
+  }
 
+  _getWebcams(axios, selectedCountriesQuery, selectedCategoryQuery) {
     axios({
       method: 'get',
       url: `https://api.windy.com/api/webcams/v2/list${selectedCategoryQuery}${selectedCountriesQuery}`,
@@ -42,7 +44,12 @@ export default class extends Controller {
       headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
     })
     .then(response => {
+      const webcamsContainer = this.webcamsTarget;
       const webcams = response['data']['result']['webcams'];
+
+      webcamsContainer.innerHTML += safeHTML`
+        <span>Number of webcams found: ${response['data']['result']['total']}</span>
+      `
 
       webcams.forEach(webcam => {
         let title = webcam['title']
@@ -55,6 +62,11 @@ export default class extends Controller {
 
         webcamsContainer.innerHTML += html;
       })
+
+      webcamsContainer.innerHTML += safeHTML`
+        <button>Load more webcams</button>
+      `
+
       console.log(response);
     })
     .catch(error => {
