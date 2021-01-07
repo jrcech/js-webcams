@@ -55,16 +55,16 @@ export default class extends Controller {
     })
     .then(response => {
       const webcamsContainer = this.webcamsTarget;
-      const webcams = response['data']['result']['webcams'];
+      const webcams = response.data.result.webcams;
 
       webcamsContainer.innerHTML += safeHTML`
-        <span>Number of webcams found: ${response['data']['result']['total']}</span>
+        <span>Number of webcams found: ${response.data.result.total}</span>
       `
 
       webcams.forEach(webcam => {
-        let title = webcam['title'];
-        let player = webcam['player']['day']['embed'];
-        let categories = webcam['category'].map(category => `${category.name}`).join(', ');
+        let title = webcam.title;
+        let player = webcam.player.day.embed;
+        let categories = webcam.category.map(category => `${category.name}`).join(', ');
 
         let html = safeHTML`
           <h2>${title}</h2>
@@ -94,7 +94,7 @@ export default class extends Controller {
 
   _initContinentsSelect() {
     const continentsSelect = this.continentsSelectTarget;
-    const continents = Object.entries(countriesList['continents']);
+    const continents = Object.entries(countriesList.continents);
 
     for (const [continent_code, continent] of continents) {
       let html = safeHTML`<option value="${continent_code}">${continent}</option>`
@@ -107,10 +107,10 @@ export default class extends Controller {
 
   _initCountriesSelect() {
     const countriesSelect = this.countriesSelectTarget;
-    const countries = Object.entries(countriesList['countries']);
+    const countries = Object.entries(countriesList.countries);
 
     for (const [country_code, country] of countries) {
-      let html = safeHTML`<option value="${country_code}">${country['name']}</option>`
+      let html = safeHTML`<option value="${country_code}">${country.name}</option>`
 
       countriesSelect.innerHTML += html;
     }
@@ -130,12 +130,12 @@ export default class extends Controller {
       headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
     })
     .then(response => {
-      const categories = response['data']['result']['categories'].sort((a, b) => (a.name > b.name) ? 1 : -1);
+      const categories = response.data.result.categories.sort((a, b) => (a.name > b.name) ? 1 : -1);
       console.log(categories);
 
       categories.forEach(category => {
-        let categoryID = category['id']
-        let categoryName = category['name'];
+        let categoryID = category.id;
+        let categoryName = category.name;
 
         let html = safeHTML`<option value="${categoryID}">${categoryName}</option>`
 
