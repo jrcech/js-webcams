@@ -34,20 +34,14 @@ export default class extends Controller {
     let offset = parseInt(this.loadMoreTarget.getAttribute("data-offset")) + 10;
 
     this.loadMoreTarget.remove();
+
     this._getWebcams(axios, offset);
   }
 
   _getWebcams(axios, offset) {
-    const selectedCountries = $('#countries_select').select2('data');
-    const selectedCountriesString = selectedCountries.map(country => `${country.id}`).join(',');
-    const selectedCountriesQuery = selectedCountriesString ? `/country=${selectedCountriesString}` : ''
-
-    const selectedCategory = $('#category_select').val();
-    const selectedCategoryQuery = selectedCategory ? `/category=${selectedCategory}` : ''
-
     axios({
       method: 'get',
-      url: `https://api.windy.com/api/webcams/v2/list/limit=10,${offset}${selectedCategoryQuery}${selectedCountriesQuery}`,
+      url: `https://api.windy.com/api/webcams/v2/list/limit=10,${offset}${this._selectedCategoryQuery()}${this._selectedCountriesQuery()}`,
       params: {
         show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
       },
@@ -90,6 +84,19 @@ export default class extends Controller {
     .catch(error => {
       console.log(error);
     });
+  }
+
+  _selectedCountriesQuery() {
+    const selectedCountries = $('#countries_select').select2('data');
+    const selectedCountriesString = selectedCountries.map(country => `${country.id}`).join(',');
+
+    return selectedCountriesString ? `/country=${selectedCountriesString}` : '';
+  }
+
+  _selectedCategoryQuery() {
+    const selectedCategory = $('#category_select').val();
+
+    return selectedCategory ? `/category=${selectedCategory}` : '';
   }
 
   _initContinentsSelect() {
