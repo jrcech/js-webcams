@@ -74,7 +74,7 @@ export default class extends Controller {
           <span>Country: ${webcam.location.country}</span><br>
           <span>Continent: ${webcam.location.continent}</span><br>
           <span>Region: ${webcam.location.region}</span><br>
-          <span>Wikipedia: <a href="${webcam.location.wikipedia}">${webcam.location.wikipedia}</a></span><br>
+          <span>Wikipedia: <a href="${webcam.location.wikipedia}" target="_blank">${webcam.location.wikipedia}</a></span><br>
           <iframe src="${player}" title="${title}"></iframe>
         `
 
