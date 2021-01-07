@@ -10,20 +10,9 @@ export default class extends Controller {
   connect() {
     console.log("connected");
 
+    this._initCountriesSelect();
+
     const webcamsContainer = this.webcamsTarget;
-    const countriesSelect = this.countriesSelectTarget;
-
-    const countries = Object.entries(countriesList['countries']);
-
-    for (const [country_code, country] of countries) {
-      // console.log(`${country['name']} has iso code ${country_code}`);
-
-      let html = safeHTML`<option value="${country_code}">${country['name']}</option>`
-
-      countriesSelect.innerHTML += html;
-    }
-
-    $('#countries_select').select2();
 
     axios({
       method: 'get',
@@ -51,5 +40,20 @@ export default class extends Controller {
     .then(function() {
       // always executed
     });
+  }
+
+  _initCountriesSelect() {
+    const countriesSelect = this.countriesSelectTarget;
+    const countries = Object.entries(countriesList['countries']);
+
+    for (const [country_code, country] of countries) {
+      // console.log(`${country['name']} has iso code ${country_code}`);
+
+      let html = safeHTML`<option value="${country_code}">${country['name']}</option>`
+
+      countriesSelect.innerHTML += html;
+    }
+
+    $('#countries_select').select2();
   }
 }
