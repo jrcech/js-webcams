@@ -9,43 +9,56 @@ export default class extends Controller {
     "webcams",
     "continentsSelect",
     "countriesSelect",
-    "categorySelect"
+    "categorySelect",
+    "submit"
   ];
 
   connect() {
-    console.log("connected");
-
     this._initContinentsSelect();
     this._initCountriesSelect();
     this._initCategoriesSelect(axios);
+  }
+
+  submit(event) {
+    event.preventDefault()
+
+    this.webcamsTarget.innerHTML = '';
+
+    const selectedCountries = $('#countries_select').select2('data');
+    const selectedCountriesString = selectedCountries.map(country => `${country.id}`).join(',');
+    const selectedCountriesQuery = selectedCountriesString ? `/country=${selectedCountriesString}` : ''
+
+    const selectedCategory = $('#category_select').val();
+    const selectedCategoryQuery = selectedCategory ? `/category=${selectedCategory}` : ''
 
     const webcamsContainer = this.webcamsTarget;
 
     axios({
       method: 'get',
-      url: 'https://api.windy.com/api/webcams/v2/list/category=beach/country=AU,',
+      url: `https://api.windy.com/api/webcams/v2/list${selectedCategoryQuery}${selectedCountriesQuery}`,
       params: {
-        show: 'webcams:image,location,player;categories'
+        show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
       },
       headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
     })
-    .then(function(response) {
+    .then(response => {
       const webcams = response['data']['result']['webcams'];
 
       webcams.forEach(webcam => {
         let title = webcam['title']
         let player = webcam['player']['day']['embed'];
 
-        let html = safeHTML`<iframe src="${player}" title="${title}"></iframe>`
+        let html = safeHTML`
+          <h2>${title}</h2>
+          <iframe src="${player}" title="${title}"></iframe>
+        `
 
         webcamsContainer.innerHTML += html;
       })
+      console.log(response);
     })
-    .catch(function(error) {
+    .catch(error => {
       console.log(error);
-    })
-    .then(function() {
-      // always executed
     });
   }
 
@@ -54,8 +67,6 @@ export default class extends Controller {
     const continents = Object.entries(countriesList['continents']);
 
     for (const [continent_code, continent] of continents) {
-      // console.log(`${continent} has iso code ${continent_code}`);
-
       let html = safeHTML`<option value="${continent_code}">${continent}</option>`
 
       continentsSelect.innerHTML += html;
@@ -69,8 +80,6 @@ export default class extends Controller {
     const countries = Object.entries(countriesList['countries']);
 
     for (const [country_code, country] of countries) {
-      // console.log(`${country['name']} has iso code ${country_code}`);
-
       let html = safeHTML`<option value="${country_code}">${country['name']}</option>`
 
       countriesSelect.innerHTML += html;
@@ -90,24 +99,22 @@ export default class extends Controller {
       },
       headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
     })
-    .then(function(response) {
-      console.log(response);
-      const categories = response['data']['result']['categories'];
+    .then(response => {
+      const categories = response['data']['result']['categories'].sort((a, b) => (a.name > b.name) ? 1 : -1);
+      console.log(categories);
 
       categories.forEach(category => {
         let categoryID = category['id']
-        let CategoryName = category['name'];
+        let categoryName = category['name'];
 
-        let html = safeHTML`<option value="${categoryID}">${CategoryName}</option>`
+        let html = safeHTML`<option value="${categoryID}">${categoryName}</option>`
 
         categorySelect.innerHTML += html;
       })
+      // console.log(response);
     })
-    .catch(function(error) {
+    .catch(error => {
       console.log(error);
-    })
-    .then(function() {
-      // always executed
     });
   }
 }

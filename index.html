@@ -34,8 +34,12 @@
     <label for="category_select">
       Select category
 
-      <select name="category" id="category_select" data-application-target="categorySelect"></select>
+      <select name="category" id="category_select" data-application-target="categorySelect">
+        <option value="">None</option>
+      </select>
     </label>
+
+    <button type="submit" data-action="application#submit">Search</button>
 
     <div data-application-target="webcams"></div>
   </div>
