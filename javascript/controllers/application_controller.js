@@ -62,11 +62,19 @@ export default class extends Controller {
       `
 
       webcams.forEach(webcam => {
-        let title = webcam['title']
+        let title = webcam['title'];
         let player = webcam['player']['day']['embed'];
+        let categories = webcam['category'].map(category => `${category.name}`).join(', ');
 
         let html = safeHTML`
           <h2>${title}</h2>
+          <span>Category: ${categories}</span><br>
+          <span>Views: ${webcam.statistics.views}</span><br>
+          <span>City: ${webcam.location.city}</span><br>
+          <span>Country: ${webcam.location.country}</span><br>
+          <span>Continent: ${webcam.location.continent}</span><br>
+          <span>Region: ${webcam.location.region}</span><br>
+          <span>Wikipedia: <a href="${webcam.location.wikipedia}">${webcam.location.wikipedia}</a></span><br>
           <iframe src="${player}" title="${title}"></iframe>
         `
 
