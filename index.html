@@ -19,7 +19,11 @@
   <h1>Windy webcams</h1>
 
   <div data-controller="application">
-    <select name="country" multiple="multiple"></select>
+    <label for="countries_select">
+      Select countries
+
+      <select name="country" multiple="multiple" id="countries_select" data-application-target="countriesSelect"></select>
+    </label>
 
     <div data-application-target="webcams"></div>
   </div>
