@@ -68,13 +68,13 @@ export default class extends Controller {
 
         let html = safeHTML`
           <h2>${title}</h2>
-          <span>Category: ${categories}</span><br>
-          <span>Views: ${webcam.statistics.views}</span><br>
-          <span>City: ${webcam.location.city}</span><br>
-          <span>Country: ${webcam.location.country}</span><br>
-          <span>Continent: ${webcam.location.continent}</span><br>
-          <span>Region: ${webcam.location.region}</span><br>
-          <span>Wikipedia: <a href="${webcam.location.wikipedia}" target="_blank">${webcam.location.wikipedia}</a></span><br>
+          <span><strong>Category:</strong> ${categories}</span><br>
+          <span><strong>Views:</strong> ${webcam.statistics.views}</span><br>
+          <span><strong>City:</strong> ${webcam.location.city}</span><br>
+          <span><strong>Country:</strong> ${webcam.location.country}</span><br>
+          <span><strong>Continent:</strong> ${webcam.location.continent}</span><br>
+          <span><strong>Region:</strong> ${webcam.location.region}</span><br>
+          <span><a href="${webcam.location.wikipedia}" target="_blank">Wikipedia</a></span><br>
           <iframe src="${player}" title="${title}"></iframe>
         `
 
