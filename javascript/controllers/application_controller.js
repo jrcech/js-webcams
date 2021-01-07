@@ -62,6 +62,7 @@ export default class extends Controller {
 
         let html = safeHTML`
           <h2>${title}</h2>
+          <button data-controller="favourite" data-action="favourite#addFavourite" data-favourite-webcam-id-value="${webcam.id}">Add to favourites</button>
           <span><strong>Category:</strong> ${categories}</span><br>
           <span><strong>Views:</strong> ${webcam.statistics.views}</span><br>
           <span><strong>City:</strong> ${webcam.location.city}</span><br>
