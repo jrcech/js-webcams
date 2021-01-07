@@ -10,6 +10,7 @@ export default class extends Controller {
     "continentsSelect",
     "countriesSelect",
     "categorySelect",
+    "loadMore",
     "submit"
   ];
 
@@ -20,10 +21,23 @@ export default class extends Controller {
   }
 
   submit(event) {
-    event.preventDefault()
+    event.preventDefault();
 
     this.webcamsTarget.innerHTML = '';
 
+    this._getWebcams(axios, 0);
+  }
+
+  loadMore(event) {
+    event.preventDefault();
+
+    let offset = parseInt(this.loadMoreTarget.getAttribute("data-offset")) + 10;
+
+    this.loadMoreTarget.remove();
+    this._getWebcams(axios, offset);
+  }
+
+  _getWebcams(axios, offset) {
     const selectedCountries = $('#countries_select').select2('data');
     const selectedCountriesString = selectedCountries.map(country => `${country.id}`).join(',');
     const selectedCountriesQuery = selectedCountriesString ? `/country=${selectedCountriesString}` : ''
@@ -31,13 +45,9 @@ export default class extends Controller {
     const selectedCategory = $('#category_select').val();
     const selectedCategoryQuery = selectedCategory ? `/category=${selectedCategory}` : ''
 
-    this._getWebcams(axios, selectedCountriesQuery, selectedCategoryQuery);
-  }
-
-  _getWebcams(axios, selectedCountriesQuery, selectedCategoryQuery) {
     axios({
       method: 'get',
-      url: `https://api.windy.com/api/webcams/v2/list${selectedCategoryQuery}${selectedCountriesQuery}`,
+      url: `https://api.windy.com/api/webcams/v2/list/limit=10,${offset}${selectedCategoryQuery}${selectedCountriesQuery}`,
       params: {
         show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
       },
@@ -64,7 +74,7 @@ export default class extends Controller {
       })
 
       webcamsContainer.innerHTML += safeHTML`
-        <button>Load more webcams</button>
+        <button data-action="application#loadMore" data-offset="${offset}" data-application-target="loadMore">Load more webcams</button>
       `
 
       console.log(response);
