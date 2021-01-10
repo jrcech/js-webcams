@@ -6,7 +6,7 @@ export default class WindyApiHelper {
   static getWebcams(target, offset) {
     axios({
       method: 'get',
-      url: `https://api.windy.com/api/webcams/v2/list/limit=10,${offset}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}`,
+      url: `https://api.windy.com/api/webcams/v2/list/limit=10,${offset}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}${this.selectedContinentsQuery()}`,
       params: {
         show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
       },
@@ -50,6 +50,13 @@ export default class WindyApiHelper {
     .catch(error => {
       console.log(error);
     });
+  }
+
+  static selectedContinentsQuery() {
+    const selectedContinents = $('#continents_select').select2('data');
+    const selectedContinentsString = selectedContinents.map(continent => `${continent.id}`).join(',');
+
+    return selectedContinentsString ? `/continent=${selectedContinentsString}` : '';
   }
 
   static selectedCountriesQuery() {
