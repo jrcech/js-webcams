@@ -16,4 +16,14 @@ export default class extends Controller {
 
     console.log(store());
   }
+
+  removeFavourite(event) {
+    event.preventDefault();
+
+    let webcamId = this.webcamIdValue;
+
+    store.remove(webcamId);
+
+    console.log(store());
+  }
 }

@@ -58,6 +58,7 @@ export default class WindyApiHelper {
       let html = safeHTML`
           <h2>${title}</h2>
           <button data-controller="favourite" data-action="favourite#addFavourite" data-favourite-webcam-id-value="${webcam.id}">Add to favourites</button>
+          <button data-controller="favourite" data-action="favourite#removeFavourite" data-favourite-webcam-id-value="${webcam.id}">Remove from favourites</button>
           <span><strong>Category:</strong> ${categories}</span><br>
           <span><strong>Views:</strong> ${webcam.statistics.views}</span><br>
           <span><strong>City:</strong> ${webcam.location.city}</span><br>
