@@ -39,6 +39,14 @@ export default class extends Controller {
     WindyApiHelper.getWebcams(this.webcamsTarget, offset);
   }
 
+  loadFavourites(event) {
+    event.preventDefault();
+
+    this.webcamsTarget.innerHTML = '';
+
+    WindyApiHelper.getFavouriteWebcams(this.webcamsTarget, 0);
+  }
+
   _initContinentsSelect() {
     const continentsSelect = this.continentsSelectTarget;
     const continents = Object.entries(countriesList.continents);
