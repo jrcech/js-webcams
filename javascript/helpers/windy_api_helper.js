@@ -7,6 +7,64 @@ axios.defaults.baseURL = 'https://api.windy.com/api/webcams/v2';
 axios.defaults.headers['x-windy-key'] = 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d';
 
 export default class WindyApiHelper {
+  static getContinents(target) {
+    $('#continents_select').select2();
+
+    axios({
+      method: 'get',
+      url: `/list`,
+      params: {
+        show: 'continents'
+      }
+    })
+    .then(response => {
+      this.constructOptionsHTML(target, response.data.result.continents);
+
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  static getCountries(target) {
+    $('#countries_select').select2();
+
+    axios({
+      method: 'get',
+      url: `/list`,
+      params: {
+        show: 'countries'
+      }
+    })
+    .then(response => {
+      this.constructOptionsHTML(target, response.data.result.countries);
+
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+  static getCategories(target) {
+    axios({
+      method: 'get',
+      url: '/list',
+      params: {
+        show: 'categories'
+      }
+    })
+    .then(response => {
+      this.constructOptionsHTML(target, response.data.result.categories);
+
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
   static getWebcams(target, offset) {
     history.pushState('', '', './');
 
@@ -62,7 +120,7 @@ export default class WindyApiHelper {
 
       let html = safeHTML`
           <h2>${title}</h2>
-          <button data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">${store.has(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
+          <button data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active" ${store.has(webcam.id) ? 'data-favourite-saved=true' : null}>${store.has(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
           <span><strong>Category:</strong> ${categories}</span><br>
           <span><strong>Views:</strong> ${webcam.statistics.views}</span><br>
           <span><strong>City:</strong> ${webcam.location.city}</span><br>
@@ -81,65 +139,7 @@ export default class WindyApiHelper {
       `
   }
 
-  static getContinents(target) {
-    $('#continents_select').select2();
-
-    axios({
-      method: 'get',
-      url: `/list`,
-      params: {
-        show: 'continents'
-      }
-    })
-    .then(response => {
-      this.constructOptions(target, response.data.result.continents);
-
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
-  static getCountries(target) {
-    $('#countries_select').select2();
-
-    axios({
-      method: 'get',
-      url: `/list`,
-      params: {
-        show: 'countries'
-      }
-    })
-    .then(response => {
-      this.constructOptions(target, response.data.result.countries);
-
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
-  static getCategories(target) {
-    axios({
-      method: 'get',
-      url: '/list',
-      params: {
-        show: 'categories'
-      }
-    })
-    .then(response => {
-      this.constructOptions(target, response.data.result.categories);
-
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  }
-
-  static constructOptions(target, object) {
+  static constructOptionsHTML(target, object) {
     const options = object.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
     options.forEach(option => {
