@@ -2,6 +2,7 @@ import safeHTML from "html-template-tag";
 import store from 'store2';
 
 const axios = require("axios");
+
 axios.defaults.baseURL = 'https://api.windy.com/api/webcams/v2';
 axios.defaults.headers['x-windy-key'] = 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d';
 
@@ -91,15 +92,7 @@ export default class WindyApiHelper {
       }
     })
     .then(response => {
-      const continents = response.data.result.continents.sort((a, b) => (a.name > b.name) ? 1 : -1);
-
-      continents.forEach(continent => {
-        let html = safeHTML`
-          <option value="${continent.id}">${continent.name}</option>
-        `
-
-        target.innerHTML += html;
-      })
+      this.constructOptions(target, response.data.result.continents);
 
       console.log(response);
     })
@@ -119,15 +112,7 @@ export default class WindyApiHelper {
       }
     })
     .then(response => {
-      const countries = response.data.result.countries.sort((a, b) => (a.name > b.name) ? 1 : -1);
-
-      countries.forEach(country => {
-        let html = safeHTML`
-          <option value="${country.id}">${country.name}</option>
-        `
-
-        target.innerHTML += html;
-      })
+      this.constructOptions(target, response.data.result.countries);
 
       console.log(response);
     })
@@ -135,7 +120,6 @@ export default class WindyApiHelper {
       console.log(error);
     });
   }
-
 
   static getCategories(target) {
     axios({
@@ -146,18 +130,23 @@ export default class WindyApiHelper {
       }
     })
     .then(response => {
-      const categories = response.data.result.categories.sort((a, b) => (a.name > b.name) ? 1 : -1);
+      this.constructOptions(target, response.data.result.categories);
 
-      categories.forEach(category => {
-        let html = safeHTML`<option value="${category.id}">${category.name}</option>`
-
-        target.innerHTML += html;
-      })
       console.log(response);
     })
     .catch(error => {
       console.log(error);
     });
+  }
+
+  static constructOptions(target, object) {
+    const options = object.sort((a, b) => (a.name > b.name) ? 1 : -1);
+
+    options.forEach(option => {
+      let html = safeHTML`<option value="${option.id}">${option.name}</option>`
+
+      target.innerHTML += html;
+    })
   }
 
   static selectedContinentsQuery() {
