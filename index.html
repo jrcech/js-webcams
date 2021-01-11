@@ -4,10 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="CMS for developers with markdown and diagram support.">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+        content="Search Windy webcams from all over the world.">
   <meta name="author" content="Jiří Čech">
-  <meta name="keywords" content="cms, php, technologies, diagrams, markdown, bootstrap, mysql">
+  <meta name="keywords"
+        content="webcams, windy, weather">
 
   <script src="public/bundle.js" async></script>
 
@@ -19,29 +22,31 @@
   <h1>Windy webcams</h1>
 
   <div data-controller="application">
-    <label for="continents_select">
-      Select continents
+    <form>
+      <label for="continents_select">Select continents</label>
+      <select name="continents"
+              multiple="multiple"
+              id="continents_select"
+              data-application-target="continentsSelect"></select>
 
-      <select name="continents" multiple="multiple" id="continents_select" data-application-target="continentsSelect"></select>
-    </label>
+      <label for="countries_select">Select countries</label>
+      <select name="countries"
+              multiple="multiple"
+              id="countries_select"
+              data-application-target="countriesSelect"></select>
 
-    <label for="countries_select">
-      Select countries
-
-      <select name="countries" multiple="multiple" id="countries_select" data-application-target="countriesSelect"></select>
-    </label>
-
-    <label for="category_select">
-      Select category
-
-      <select name="category" id="category_select" data-application-target="categorySelect">
+      <label for="category_select">Select category</label>
+      <select name="category"
+              id="category_select"
+              data-application-target="categorySelect">
         <option value="">None</option>
       </select>
-    </label>
 
-    <button type="submit" data-action="application#submit">Search</button>
+      <input type="submit" data-action="application#submit" value="Search">
+    </form>
 
-    <button type="submit" data-action="application#loadFavourites">Favourites</button>
+    <button type="submit" data-action="application#loadFavourites">Favourites
+    </button>
 
     <div data-application-target="webcams"></div>
   </div>
