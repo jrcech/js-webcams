@@ -80,6 +80,35 @@ export default class WindyApiHelper {
       `
   }
 
+  static getContinents(target) {
+    $('#continents_select').select2();
+
+    axios({
+      method: 'get',
+      url: `https://api.windy.com/api/webcams/v2/list`,
+      params: {
+        show: 'continents'
+      },
+      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
+    })
+    .then(response => {
+      const continents = response.data.result.continents.sort((a, b) => (a.name > b.name) ? 1 : -1);
+
+      continents.forEach(continent => {
+        let html = safeHTML`
+          <option value="${continent.id}">${continent.name}</option>
+        `
+
+        target.innerHTML += html;
+      })
+
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
   static selectedContinentsQuery() {
     const selectedContinents = $('#continents_select').select2('data');
     const selectedContinentsString = selectedContinents.map(continent => `${continent.id}`).join(',');

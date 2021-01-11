@@ -16,7 +16,7 @@ export default class extends Controller {
   ];
 
   connect() {
-    this._initContinentsSelect();
+    WindyApiHelper.getContinents(this.continentsSelectTarget);
     this._initCountriesSelect();
     this._initCategoriesSelect(axios);
   }
@@ -45,19 +45,6 @@ export default class extends Controller {
     this.webcamsTarget.innerHTML = '';
 
     WindyApiHelper.getFavouriteWebcams(this.webcamsTarget, 0);
-  }
-
-  _initContinentsSelect() {
-    const continentsSelect = this.continentsSelectTarget;
-    const continents = Object.entries(countriesList.continents);
-
-    for (const [continent_code, continent] of continents) {
-      let html = safeHTML`<option value="${continent_code}">${continent}</option>`
-
-      continentsSelect.innerHTML += html;
-    }
-
-    $('#continents_select').select2();
   }
 
   _initCountriesSelect() {
