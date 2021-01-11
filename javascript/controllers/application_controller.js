@@ -1,9 +1,5 @@
 import { Controller } from "stimulus";
-import safeHTML from 'html-template-tag';
-import countriesList from 'countries-list';
 import WindyApiHelper from "../helpers/windy_api_helper";
-
-const axios = require("axios");
 
 export default class extends Controller {
   static targets = [
@@ -17,8 +13,8 @@ export default class extends Controller {
 
   connect() {
     WindyApiHelper.getContinents(this.continentsSelectTarget);
+    WindyApiHelper.getCountries(this.countriesSelectTarget);
     WindyApiHelper.getCategories(this.categorySelectTarget);
-    this._initCountriesSelect();
   }
 
   submit(event) {
@@ -45,18 +41,5 @@ export default class extends Controller {
     this.webcamsTarget.innerHTML = '';
 
     WindyApiHelper.getFavouriteWebcams(this.webcamsTarget, 0);
-  }
-
-  _initCountriesSelect() {
-    const countriesSelect = this.countriesSelectTarget;
-    const countries = Object.entries(countriesList.countries);
-
-    for (const [country_code, country] of countries) {
-      let html = safeHTML`<option value="${country_code}">${country.name}</option>`
-
-      countriesSelect.innerHTML += html;
-    }
-
-    $('#countries_select').select2();
   }
 }

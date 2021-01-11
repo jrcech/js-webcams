@@ -109,6 +109,36 @@ export default class WindyApiHelper {
     });
   }
 
+  static getCountries(target) {
+    $('#countries_select').select2();
+
+    axios({
+      method: 'get',
+      url: `https://api.windy.com/api/webcams/v2/list`,
+      params: {
+        show: 'countries'
+      },
+      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
+    })
+    .then(response => {
+      const countries = response.data.result.countries.sort((a, b) => (a.name > b.name) ? 1 : -1);
+
+      countries.forEach(country => {
+        let html = safeHTML`
+          <option value="${country.id}">${country.name}</option>
+        `
+
+        target.innerHTML += html;
+      })
+
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+
   static getCategories(target) {
     axios({
       method: 'get',
