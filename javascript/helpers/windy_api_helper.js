@@ -5,6 +5,8 @@ const axios = require("axios");
 
 export default class WindyApiHelper {
   static getWebcams(target, offset) {
+    history.pushState('', '', './');
+
     axios({
       method: 'get',
       url: `https://api.windy.com/api/webcams/v2/list/limit=10,${offset}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}${this.selectedContinentsQuery()}`,
@@ -24,6 +26,8 @@ export default class WindyApiHelper {
   }
 
   static getFavouriteWebcams(target, offset) {
+    history.pushState('', '', 'favourites');
+
     axios({
       method: 'get',
       url: `https://api.windy.com/api/webcams/v2/list/webcam=${store.keys().join(',')}`,
@@ -57,8 +61,7 @@ export default class WindyApiHelper {
 
       let html = safeHTML`
           <h2>${title}</h2>
-          <button data-controller="favourite" data-action="favourite#addFavourite" data-favourite-webcam-id-value="${webcam.id}">Add to favourites</button>
-          <button data-controller="favourite" data-action="favourite#removeFavourite" data-favourite-webcam-id-value="${webcam.id}">Remove from favourites</button>
+          <button data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">Add to favourites</button>
           <span><strong>Category:</strong> ${categories}</span><br>
           <span><strong>Views:</strong> ${webcam.statistics.views}</span><br>
           <span><strong>City:</strong> ${webcam.location.city}</span><br>
