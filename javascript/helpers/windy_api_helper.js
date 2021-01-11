@@ -61,7 +61,7 @@ export default class WindyApiHelper {
 
       let html = safeHTML`
           <h2>${title}</h2>
-          <button data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">Add to favourites</button>
+          <button data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">${store.has(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
           <span><strong>Category:</strong> ${categories}</span><br>
           <span><strong>Views:</strong> ${webcam.statistics.views}</span><br>
           <span><strong>City:</strong> ${webcam.location.city}</span><br>
