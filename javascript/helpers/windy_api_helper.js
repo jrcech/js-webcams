@@ -2,6 +2,8 @@ import safeHTML from "html-template-tag";
 import store from 'store2';
 
 const axios = require("axios");
+axios.defaults.baseURL = 'https://api.windy.com/api/webcams/v2';
+axios.defaults.headers['x-windy-key'] = 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d';
 
 export default class WindyApiHelper {
   static getWebcams(target, offset) {
@@ -9,11 +11,10 @@ export default class WindyApiHelper {
 
     axios({
       method: 'get',
-      url: `https://api.windy.com/api/webcams/v2/list/limit=10,${offset}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}${this.selectedContinentsQuery()}`,
+      url: `/list/limit=10,${offset}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}${this.selectedContinentsQuery()}`,
       params: {
         show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
-      },
-      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
+      }
     })
     .then(response => {
       this.constructWebcamHTML(response, target, offset);
@@ -30,11 +31,10 @@ export default class WindyApiHelper {
 
     axios({
       method: 'get',
-      url: `https://api.windy.com/api/webcams/v2/list/webcam=${store.keys().join(',')}`,
+      url: `/list/webcam=${store.keys().join(',')}`,
       params: {
         show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
-      },
-      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
+      }
     })
     .then(response => {
       this.constructWebcamHTML(response, target, offset);
@@ -85,11 +85,10 @@ export default class WindyApiHelper {
 
     axios({
       method: 'get',
-      url: `https://api.windy.com/api/webcams/v2/list`,
+      url: `/list`,
       params: {
         show: 'continents'
-      },
-      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
+      }
     })
     .then(response => {
       const continents = response.data.result.continents.sort((a, b) => (a.name > b.name) ? 1 : -1);
@@ -114,11 +113,10 @@ export default class WindyApiHelper {
 
     axios({
       method: 'get',
-      url: `https://api.windy.com/api/webcams/v2/list`,
+      url: `/list`,
       params: {
         show: 'countries'
-      },
-      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
+      }
     })
     .then(response => {
       const countries = response.data.result.countries.sort((a, b) => (a.name > b.name) ? 1 : -1);
@@ -142,11 +140,10 @@ export default class WindyApiHelper {
   static getCategories(target) {
     axios({
       method: 'get',
-      url: 'https://api.windy.com/api/webcams/v2/list',
+      url: '/list',
       params: {
         show: 'categories'
-      },
-      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
+      }
     })
     .then(response => {
       const categories = response.data.result.categories.sort((a, b) => (a.name > b.name) ? 1 : -1);
