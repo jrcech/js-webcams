@@ -27,22 +27,28 @@
       <select name="continents"
               multiple="multiple"
               id="continents_select"
+              class="w-1/4"
               data-application-target="continentsSelect"></select>
 
       <label for="countries_select">Select countries</label>
       <select name="countries"
               multiple="multiple"
               id="countries_select"
+              class="w-1/4"
               data-application-target="countriesSelect"></select>
 
       <label for="category_select">Select category</label>
       <select name="category"
               id="category_select"
+              class="form-select"
               data-application-target="categorySelect">
         <option value="">None</option>
       </select>
 
-      <input type="submit" data-action="application#submit" value="Search">
+      <input type="submit"
+             data-action="application#submit"
+             value="Search"
+             class="border border-indigo-500 text-indigo-500 rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:text-white hover:bg-indigo-600 focus:outline-none focus:shadow-outline">
     </form>
 
     <button type="submit" data-action="application#loadFavourites">Favourites

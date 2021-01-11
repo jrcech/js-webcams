@@ -128,7 +128,7 @@ export default class WindyApiHelper {
           <span><strong>Continent:</strong> ${webcam.location.continent}</span><br>
           <span><strong>Region:</strong> ${webcam.location.region}</span><br>
           <span><a href="${webcam.location.wikipedia}" target="_blank">Wikipedia</a></span><br>
-          <iframe src="${player}" title="${title}"></iframe>
+          <iframe src="${player}" title="${title}" class="w-3/4 h-auto"></iframe>
         `
 
       webcamsContainer.innerHTML += html;

@@ -2,7 +2,7 @@ import { Application } from "stimulus";
 import { definitionsFromContext } from "stimulus/webpack-helpers";
 import Turbo from "@hotwired/turbo";
 
-import "./stylesheets";
+import "./stylesheets"
 import "jquery";
 import "select2";
 
