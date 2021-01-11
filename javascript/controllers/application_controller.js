@@ -17,8 +17,8 @@ export default class extends Controller {
 
   connect() {
     WindyApiHelper.getContinents(this.continentsSelectTarget);
+    WindyApiHelper.getCategories(this.categorySelectTarget);
     this._initCountriesSelect();
-    this._initCategoriesSelect(axios);
   }
 
   submit(event) {
@@ -58,35 +58,5 @@ export default class extends Controller {
     }
 
     $('#countries_select').select2();
-  }
-
-  _initCategoriesSelect(axios) {
-    const categorySelect = this.categorySelectTarget;
-
-    axios({
-      method: 'get',
-      url: 'https://api.windy.com/api/webcams/v2/list',
-      params: {
-        show: 'categories'
-      },
-      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
-    })
-    .then(response => {
-      const categories = response.data.result.categories.sort((a, b) => (a.name > b.name) ? 1 : -1);
-      console.log(categories);
-
-      categories.forEach(category => {
-        let categoryID = category.id;
-        let categoryName = category.name;
-
-        let html = safeHTML`<option value="${categoryID}">${categoryName}</option>`
-
-        categorySelect.innerHTML += html;
-      })
-      // console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
   }
 }

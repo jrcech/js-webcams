@@ -109,6 +109,30 @@ export default class WindyApiHelper {
     });
   }
 
+  static getCategories(target) {
+    axios({
+      method: 'get',
+      url: 'https://api.windy.com/api/webcams/v2/list',
+      params: {
+        show: 'categories'
+      },
+      headers: {'x-windy-key': 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d'}
+    })
+    .then(response => {
+      const categories = response.data.result.categories.sort((a, b) => (a.name > b.name) ? 1 : -1);
+
+      categories.forEach(category => {
+        let html = safeHTML`<option value="${category.id}">${category.name}</option>`
+
+        target.innerHTML += html;
+      })
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
   static selectedContinentsQuery() {
     const selectedContinents = $('#continents_select').select2('data');
     const selectedContinentsString = selectedContinents.map(continent => `${continent.id}`).join(',');
