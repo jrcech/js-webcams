@@ -18,7 +18,21 @@
 </head>
 
 <body>
-<div class="container">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="./">Webcams</a>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="./">Home</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
   <h1>Windy webcams</h1>
 
   <div data-controller="application">
@@ -58,13 +72,12 @@
                data-action="application#submit"
                value="Search"
                class="btn btn-primary">
+        <button type="submit"
+                data-action="application#loadFavourites"
+                class="btn btn-secondary">Favourites
+        </button>
       </div>
     </form>
-
-    <button type="submit"
-            data-action="application#loadFavourites"
-            class="btn btn-secondary">Favourites
-    </button>
 
     <main data-application-target="webcams"></main>
   </div>
