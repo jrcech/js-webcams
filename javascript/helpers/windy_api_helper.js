@@ -61,17 +61,22 @@ export default class WindyApiHelper {
       let categories = webcam.category.map(category => `${category.name}`).join(', ');
 
       let html = safeHTML`
-          <h2>${title}</h2>
-          <button data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">${store.has(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
-          <span><strong>Category:</strong> ${categories}</span><br>
-          <span><strong>Views:</strong> ${webcam.statistics.views}</span><br>
-          <span><strong>City:</strong> ${webcam.location.city}</span><br>
-          <span><strong>Country:</strong> ${webcam.location.country}</span><br>
-          <span><strong>Continent:</strong> ${webcam.location.continent}</span><br>
-          <span><strong>Region:</strong> ${webcam.location.region}</span><br>
-          <span><a href="${webcam.location.wikipedia}" target="_blank">Wikipedia</a></span><br>
-          <iframe src="${player}" title="${title}" class="w-3/4 h-auto"></iframe>
-        `
+        <div class="card mb-4">
+          <div class="card-body">
+          <h2 class="card-title">${title}</h2>
+          <button class="btn btn-secondary" data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">${store.has(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
+          <br>
+          <span class="card-text"><strong>Category:</strong> ${categories}</span><br>
+          <span class="card-text"><strong>Views:</strong> ${webcam.statistics.views}</span><br>
+          <span class="card-text"><strong>City:</strong> ${webcam.location.city}</span><br>
+          <span class="card-text"><strong>Country:</strong> ${webcam.location.country}</span><br>
+          <span class="card-text"><strong>Continent:</strong> ${webcam.location.continent}</span><br>
+          <span class="card-text"><strong>Region:</strong> ${webcam.location.region}</span><br>
+          <span class="card-text"><a href="${webcam.location.wikipedia}" target="_blank">Wikipedia</a></span><br>
+          </div>
+          <iframe src="${player}" title="${title}" height="450"></iframe>
+        </div>
+      `
 
       webcamsContainer.innerHTML += html;
     })
