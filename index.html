@@ -22,37 +22,47 @@
   <h1>Windy webcams</h1>
 
   <div data-controller="application">
-    <form>
-      <label for="continents_select">Select continents</label>
-      <select name="continents"
-              multiple="multiple"
-              id="continents_select"
-              class="w-25"
-              data-application-target="continentsSelect"></select>
+    <form class="row">
+      <div class="col-lg-4">
+        <label for="continents_select" class="form-label">Select
+          continents</label>
+        <select name="continents"
+                multiple="multiple"
+                id="continents_select"
+                class="form-select"
+                data-application-target="continentsSelect"></select>
+      </div>
 
-      <label for="countries_select">Select countries</label>
-      <select name="countries"
-              multiple="multiple"
-              id="countries_select"
-              class="w-25"
-              data-application-target="countriesSelect"></select>
+      <div class="col-lg-4">
+        <label for="countries_select" class="form-label">Select
+          countries</label>
+        <select name="countries"
+                multiple="multiple"
+                id="countries_select"
+                class="form-select"
+                data-application-target="countriesSelect"></select>
+      </div>
 
-      <label for="category_select">Select category</label>
-      <select name="category"
-              id="category_select"
-              class="form-select"
-              data-application-target="categorySelect">
-        <option value="">None</option>
-      </select>
+      <div class="col-lg-4">
+        <label for="category_select" class="form-label">Select category</label>
+        <select name="category"
+                id="category_select"
+                class="form-select"
+                data-application-target="categorySelect">
+          <option value="">None</option>
+        </select>
+      </div>
 
+      <div class="col-12">
       <input type="submit"
              data-action="application#submit"
              value="Search"
              class="btn btn-primary">
+      </div>
     </form>
 
-    <button type="submit" data-action="application#loadFavourites">Favourites
-    </button>
+      <button type="submit" data-action="application#loadFavourites" class="btn btn-secondary">Favourites
+      </button>
 
     <div data-application-target="webcams"></div>
   </div>
