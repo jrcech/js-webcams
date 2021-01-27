@@ -15,6 +15,10 @@ export default class extends Controller {
     WindyApiHelper.getContinents(this.continentsSelectTarget);
     WindyApiHelper.getCountries(this.countriesSelectTarget);
     WindyApiHelper.getCategories(this.categorySelectTarget);
+
+    $('select').select2({
+      theme: 'bootstrap4',
+    });
   }
 
   submit(event) {
