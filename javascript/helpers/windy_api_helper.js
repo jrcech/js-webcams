@@ -38,7 +38,7 @@ export default class WindyApiHelper {
     if (favourites.length > 0) {
       axios({
         method: 'get',
-        url: `/list/webcam=${JSON.parse(store.get("favourites")).join(',')}`,
+        url: `/list/limit=25/webcam=${JSON.parse(store.get("favourites")).join(',')}`,
         params: {
           show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
         }
@@ -60,12 +60,6 @@ export default class WindyApiHelper {
     const webcamsContainer = target;
     const webcams = response.data.result.webcams;
     const totalWebcams = response.data.result.total;
-
-    if (offset === 0) {
-      webcamsContainer.innerHTML += safeHTML`
-        <span>Number of webcams found: ${totalWebcams}</span>
-      `
-    }
 
     webcams.forEach(webcam => {
       let title = webcam.title;
@@ -105,7 +99,7 @@ export default class WindyApiHelper {
       webcamsContainer.innerHTML += html;
     })
 
-    if (totalWebcams - offset > 10) {
+    if (totalWebcams - offset > 10 && response.data.result.limit !== 25) {
       webcamsContainer.innerHTML += safeHTML`
         <button data-action="application#loadMore" data-offset="${offset}" data-application-target="loadMore" class="btn btn-outline-secondary mb-5">Load more webcams</button>
       `
