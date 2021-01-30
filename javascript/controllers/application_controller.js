@@ -8,7 +8,10 @@ export default class extends Controller {
     "countriesSelect",
     "categorySelect",
     "loadMore",
-    "submit"
+    "submit",
+    "favouritesLink",
+    "searchLink",
+    "searchForm"
   ];
 
   connect() {
@@ -47,6 +50,10 @@ export default class extends Controller {
     event.preventDefault();
 
     this.webcamsTarget.innerHTML = '';
+    this.searchFormTarget.innerHTML = '';
+
+    this.searchLinkTarget.classList.remove('active');
+    this.favouritesLinkTarget.classList.add('active');
 
     WindyApiHelper.getFavouriteWebcams(this.webcamsTarget, 0);
   }
