@@ -8,7 +8,9 @@ axios.defaults.headers['x-windy-key'] = 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d';
 
 export default class WindyApiHelper {
   static getWebcams(target, offset, submit) {
-    history.pushState('', '', './');
+    const submitButton = submit;
+
+    window.history.pushState('', '', './');
 
     axios({
       method: 'get',
@@ -27,14 +29,15 @@ export default class WindyApiHelper {
         console.log(error);
       })
       .then(() => {
-        submit.disabled = false;
+        submitButton.disabled = false;
       });
   }
 
   static getFavouriteWebcams(target, offset) {
-    history.pushState('', '', 'favourites');
-
+    const webcamsTarget = target;
     const favourites = JSON.parse(store.get('favourites'));
+
+    window.history.pushState('', '', 'favourites');
 
     if (favourites.length > 0) {
       axios({
@@ -56,25 +59,25 @@ export default class WindyApiHelper {
           console.log(error);
         });
     } else {
-      target.textContent = 'No favourite webcams saved.';
+      webcamsTarget.textContent = 'No favourite webcams saved.';
     }
   }
 
   static constructWebcamHTML(response, target, offset) {
     const webcamsContainer = target;
-    const webcams = response.data.result.webcams;
+    const { webcams } = response.data.result;
     const totalWebcams = response.data.result.total;
 
     webcams.forEach((webcam) => {
-      let title = webcam.title;
-      let player = webcam.player.day.embed;
-      let categories = webcam.category
+      const { title } = webcam;
+      const player = webcam.player.day.embed;
+      const categories = webcam.category
         .map((category) => `${category.name}`)
         .join(', ');
 
-      let favourites = JSON.parse(store.get('favourites'));
+      const favourites = JSON.parse(store.get('favourites'));
 
-      let html = safeHTML`
+      const html = safeHTML`
         <div class="card mb-4">
           <div class="card-body row">
             <h2 class="card-title">${title}</h2>
@@ -135,14 +138,16 @@ export default class WindyApiHelper {
   }
 
   static getContinents(target) {
-    target.disabled = true;
+    const select = target;
+
+    select.disabled = true;
 
     const storedContinents = JSON.parse(store.get('continents'));
 
     if (storedContinents) {
       this.constructOptions(target, storedContinents);
 
-      target.disabled = false;
+      select.disabled = false;
     } else {
       axios({
         method: 'get',
@@ -161,20 +166,22 @@ export default class WindyApiHelper {
           console.log(error);
         })
         .then(() => {
-          target.disabled = false;
+          select.disabled = false;
         });
     }
   }
 
   static getCountries(target) {
-    target.disabled = true;
+    const select = target;
+
+    select.disabled = true;
 
     const storedCountries = JSON.parse(store.get('countries'));
 
     if (storedCountries) {
       this.constructOptions(target, storedCountries);
 
-      target.disabled = false;
+      select.disabled = false;
     } else {
       axios({
         method: 'get',
@@ -193,20 +200,22 @@ export default class WindyApiHelper {
           console.log(error);
         })
         .then(() => {
-          target.disabled = false;
+          select.disabled = false;
         });
     }
   }
 
   static getCategories(target) {
-    target.disabled = true;
+    const select = target;
+
+    select.disabled = true;
 
     const storedCategories = JSON.parse(store.get('categories'));
 
     if (storedCategories) {
       this.constructOptions(target, storedCategories);
 
-      target.disabled = false;
+      select.disabled = false;
     } else {
       axios({
         method: 'get',
@@ -225,18 +234,19 @@ export default class WindyApiHelper {
           console.log(error);
         })
         .then(() => {
-          target.disabled = false;
+          select.disabled = false;
         });
     }
   }
 
   static constructOptions(target, object) {
+    const select = target;
     const options = object.sort((a, b) => (a.name > b.name ? 1 : -1));
 
     options.forEach((option) => {
-      let html = safeHTML`<option value="${option.id}">${option.name}</option>`;
+      const html = safeHTML`<option value="${option.id}">${option.name}</option>`;
 
-      target.innerHTML += html;
+      select.innerHTML += html;
     });
   }
 

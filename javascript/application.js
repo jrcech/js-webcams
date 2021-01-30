@@ -1,6 +1,5 @@
 import { Application } from 'stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';
-import bootstrap from 'bootstrap';
 
 import './stylesheets';
 import 'jquery';
