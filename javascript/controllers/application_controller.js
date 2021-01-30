@@ -11,7 +11,8 @@ export default class extends Controller {
     "submit",
     "favouritesLink",
     "searchLink",
-    "searchForm"
+    "searchForm",
+    "heading"
   ];
 
   connect() {
@@ -54,6 +55,7 @@ export default class extends Controller {
 
     this.searchLinkTarget.classList.remove('active');
     this.favouritesLinkTarget.classList.add('active');
+    this.headingTarget.textContent = 'Favourite webcams';
 
     WindyApiHelper.getFavouriteWebcams(this.webcamsTarget, 0);
   }
