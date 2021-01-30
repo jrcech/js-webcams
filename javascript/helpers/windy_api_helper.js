@@ -33,21 +33,27 @@ export default class WindyApiHelper {
   static getFavouriteWebcams(target, offset) {
     history.pushState('', '', 'favourites');
 
-    axios({
-      method: 'get',
-      url: `/list/webcam=${JSON.parse(store.get("favourites")).join(',')}`,
-      params: {
-        show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
-      }
-    })
-    .then(response => {
-      this.constructWebcamHTML(response, target, offset);
+    const favourites = JSON.parse(store.get("favourites"));
 
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    if (favourites.length > 0) {
+      axios({
+        method: 'get',
+        url: `/list/webcam=${JSON.parse(store.get("favourites")).join(',')}`,
+        params: {
+          show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
+        }
+      })
+      .then(response => {
+        this.constructWebcamHTML(response, target, offset);
+
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    } else {
+      target.textContent = 'No favourite webcams saved.'
+    }
   }
 
   static constructWebcamHTML(response, target, offset) {
@@ -64,10 +70,6 @@ export default class WindyApiHelper {
       let categories = webcam.category.map(category => `${category.name}`).join(', ');
 
       let favourites = JSON.parse(store.get("favourites"));
-
-      if (!favourites) {
-        favourites = [];
-      }
 
       let html = safeHTML`
         <div class="card mb-4">

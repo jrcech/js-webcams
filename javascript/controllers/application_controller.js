@@ -1,5 +1,6 @@
 import { Controller } from "stimulus";
 import WindyApiHelper from "../helpers/windy_api_helper";
+import store from 'store2';
 
 export default class extends Controller {
   static targets = [
@@ -23,6 +24,12 @@ export default class extends Controller {
     $('select').select2({
       theme: 'bootstrap4',
     });
+
+    const favourites = JSON.parse(store.get("favourites"));
+
+    if (!favourites) {
+      store("favourites", JSON.stringify([]));
+    }
   }
 
   submit(event) {

@@ -32,12 +32,7 @@ export default class extends Controller {
 
       let favourites = JSON.parse(store.get("favourites"));
 
-      if (favourites) {
-        favourites.push(webcamId);
-      } else {
-        favourites = [];
-        favourites.push(webcamId);
-      }
+      favourites.push(webcamId);
 
       store("favourites", JSON.stringify(favourites));
     }
