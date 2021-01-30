@@ -65,6 +65,10 @@ export default class WindyApiHelper {
 
       let favourites = JSON.parse(store.get("favourites"));
 
+      if (!favourites) {
+        favourites = [];
+      }
+
       let html = safeHTML`
         <div class="card mb-4">
           <div class="card-body row">
@@ -104,59 +108,80 @@ export default class WindyApiHelper {
   static getContinents(target) {
     $('#continents_select').select2();
 
-    axios({
-      method: 'get',
-      url: `/list`,
-      params: {
-        show: 'continents'
-      }
-    })
-    .then(response => {
-      this.constructOptions(target, response.data.result.continents);
+    const storedContinents = JSON.parse(store.get("continents"));
 
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    if (storedContinents) {
+      this.constructOptions(target, storedContinents);
+    } else {
+      axios({
+        method: 'get',
+        url: `/list`,
+        params: {
+          show: 'continents'
+        }
+      })
+      .then(response => {
+        this.constructOptions(target, response.data.result.continents);
+        store("continents", JSON.stringify(response.data.result.continents));
+
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
   }
 
   static getCountries(target) {
     $('#countries_select').select2();
 
-    axios({
-      method: 'get',
-      url: `/list`,
-      params: {
-        show: 'countries'
-      }
-    })
-    .then(response => {
-      this.constructOptions(target, response.data.result.countries);
+    const storedCountries = JSON.parse(store.get("countries"));
 
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    if (storedCountries) {
+      this.constructOptions(target, storedCountries);
+    } else {
+      axios({
+        method: 'get',
+        url: `/list`,
+        params: {
+          show: 'countries'
+        }
+      })
+      .then(response => {
+        this.constructOptions(target, response.data.result.countries);
+        store("countries", JSON.stringify(response.data.result.countries));
+
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
   }
 
   static getCategories(target) {
-    axios({
-      method: 'get',
-      url: '/list',
-      params: {
-        show: 'categories'
-      }
-    })
-    .then(response => {
-      this.constructOptions(target, response.data.result.categories);
+    const storedCategories = JSON.parse(store.get("categories"));
 
-      console.log(response);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    if (storedCategories) {
+      this.constructOptions(target, storedCategories);
+    } else {
+      axios({
+        method: 'get',
+        url: '/list',
+        params: {
+          show: 'categories'
+        }
+      })
+      .then(response => {
+        this.constructOptions(target, response.data.result.categories);
+        store("categories", JSON.stringify(response.data.result.categories));
+
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
   }
 
   static constructOptions(target, object) {
