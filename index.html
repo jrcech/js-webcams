@@ -17,7 +17,7 @@
   <title>Windy Webcams | Jiří Čech</title>
 </head>
 
-<body>
+<body data-controller="application">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="./">Webcams</a>
@@ -27,6 +27,11 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="./">Home</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="./"
+             data-action="application#loadFavourites">Favourites</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -35,52 +40,46 @@
 <div class="container mt-4">
   <h1>Windy webcams</h1>
 
-  <div data-controller="application">
-    <form class="row">
-      <div class="col-lg-4">
-        <label for="continents_select" class="form-label">Select
-          continents</label>
-        <select name="continents"
-                multiple="multiple"
-                id="continents_select"
-                class="form-select"
-                data-application-target="continentsSelect"></select>
-      </div>
+  <form class="row">
+    <div class="col-lg-4">
+      <label for="continents_select" class="form-label">Select
+        continents</label>
+      <select name="continents"
+              multiple="multiple"
+              id="continents_select"
+              class="form-select"
+              data-application-target="continentsSelect"></select>
+    </div>
 
-      <div class="col-lg-4">
-        <label for="countries_select" class="form-label">Select
-          countries</label>
-        <select name="countries"
-                multiple="multiple"
-                id="countries_select"
-                class="form-select"
-                data-application-target="countriesSelect"></select>
-      </div>
+    <div class="col-lg-4">
+      <label for="countries_select" class="form-label">Select
+        countries</label>
+      <select name="countries"
+              multiple="multiple"
+              id="countries_select"
+              class="form-select"
+              data-application-target="countriesSelect"></select>
+    </div>
 
-      <div class="col-lg-4">
-        <label for="category_select" class="form-label">Select category</label>
-        <select name="category"
-                id="category_select"
-                class="form-select"
-                data-application-target="categorySelect">
-          <option value="">None</option>
-        </select>
-      </div>
+    <div class="col-lg-4">
+      <label for="category_select" class="form-label">Select category</label>
+      <select name="category"
+              id="category_select"
+              class="form-select"
+              data-application-target="categorySelect">
+        <option value="">None</option>
+      </select>
+    </div>
 
-      <div class="col-12">
-        <input type="submit"
-               data-action="application#submit"
-               value="Search"
-               class="btn btn-primary">
-        <button type="submit"
-                data-action="application#loadFavourites"
-                class="btn btn-secondary">Favourites
-        </button>
-      </div>
-    </form>
+    <div class="col-12">
+      <input type="submit"
+             data-action="application#submit"
+             value="Search"
+             class="btn btn-primary">
+    </div>
+  </form>
 
-    <main data-application-target="webcams"></main>
-  </div>
+  <main data-application-target="webcams"></main>
 </div>
 </body>
 
