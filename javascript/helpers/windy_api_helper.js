@@ -35,7 +35,7 @@ export default class WindyApiHelper {
 
     axios({
       method: 'get',
-      url: `/list/webcam=${store.keys().join(',')}`,
+      url: `/list/webcam=${JSON.parse(store.get("favourites")).join(',')}`,
       params: {
         show: 'webcams:category,location,player,property,statistics;categories;properties;continents;countries'
       }
@@ -63,6 +63,8 @@ export default class WindyApiHelper {
       let player = webcam.player.day.embed;
       let categories = webcam.category.map(category => `${category.name}`).join(', ');
 
+      let favourites = JSON.parse(store.get("favourites"));
+
       let html = safeHTML`
         <div class="card mb-4">
           <div class="card-body row">
@@ -83,7 +85,7 @@ export default class WindyApiHelper {
             </div>
             
             <div class="col">
-              <button class="btn btn-outline-${store.has(webcam.id) ? 'danger' : 'success'} float-end" data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-saved="${store.has(webcam.id) ? 'true' : 'false'}" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">${store.has(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
+              <button class="btn btn-outline-${favourites.includes(webcam.id) ? 'danger' : 'success'} float-end" data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-saved="${favourites.includes(webcam.id) ? 'true' : 'false'}" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">${favourites.includes(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
             </div>
           </div>
           
