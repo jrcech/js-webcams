@@ -1,19 +1,19 @@
-import { Controller } from "stimulus";
-import WindyApiHelper from "../helpers/windy_api_helper";
+import { Controller } from 'stimulus';
 import store from 'store2';
+import WindyApiHelper from '../helpers/windy_api_helper';
 
 export default class extends Controller {
   static targets = [
-    "webcams",
-    "continentsSelect",
-    "countriesSelect",
-    "categorySelect",
-    "loadMore",
-    "submit",
-    "favouritesLink",
-    "searchLink",
-    "searchForm",
-    "heading"
+    'webcams',
+    'continentsSelect',
+    'countriesSelect',
+    'categorySelect',
+    'loadMore',
+    'submit',
+    'favouritesLink',
+    'searchLink',
+    'searchForm',
+    'heading',
   ];
 
   connect() {
@@ -25,10 +25,10 @@ export default class extends Controller {
       theme: 'bootstrap4',
     });
 
-    const favourites = JSON.parse(store.get("favourites"));
+    const favourites = JSON.parse(store.get('favourites'));
 
     if (!favourites) {
-      store("favourites", JSON.stringify([]));
+      store('favourites', JSON.stringify([]));
     }
   }
 
@@ -47,7 +47,8 @@ export default class extends Controller {
 
     this.submitTarget.disabled = true;
 
-    let offset = parseInt(this.loadMoreTarget.getAttribute("data-offset")) + 10;
+    const offset =
+      parseInt(this.loadMoreTarget.getAttribute('data-offset'), 10) + 10;
 
     this.loadMoreTarget.remove();
 

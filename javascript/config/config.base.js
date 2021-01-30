@@ -1,14 +1,14 @@
-const path = require("path")
-const webpack = require("webpack");
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    bundle: "./javascript/application.js"
+    bundle: './javascript/application.js',
   },
 
   output: {
-    filename: "bundle.js",
-    path: path.resolve("./", "public")
+    filename: 'bundle.js',
+    path: path.resolve('./', 'public'),
   },
 
   module: {
@@ -17,23 +17,23 @@ module.exports = {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader", "postcss-loader"],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
-    ]
+    ],
   },
 
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery'
-    })
+      jQuery: 'jquery',
+    }),
   ],
-}
+};
