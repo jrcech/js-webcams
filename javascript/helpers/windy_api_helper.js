@@ -64,7 +64,7 @@ export default class WindyApiHelper {
         <div class="card mb-4">
           <div class="card-body">
           <h2 class="card-title">${title}</h2>
-          <button class="btn btn-secondary" data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">${store.has(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
+          <button class="btn btn-secondary" data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-saved="${store.has(webcam.id) ? 'true' : 'false'}" data-favourite-webcam-id-value="${webcam.id}" data-favourite-css-class="active">${store.has(webcam.id) ? 'Remove from favourites' : 'Add to favourites'}</button>
           <br>
           <span class="card-text"><strong>Category:</strong> ${categories}</span><br>
           <span class="card-text"><strong>Views:</strong> ${webcam.statistics.views}</span><br>
