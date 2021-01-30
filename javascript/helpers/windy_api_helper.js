@@ -14,7 +14,7 @@ export default class WindyApiHelper {
 
     axios({
       method: 'get',
-      url: `/list/limit=10,${offset}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}${this.selectedContinentsQuery()}`,
+      url: `/list/limit=10,${offset}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}${this.selectedContinentQuery()}`,
       params: {
         show:
           'webcams:category,location,player,property,statistics;categories;properties;continents;countries',
@@ -281,15 +281,10 @@ export default class WindyApiHelper {
     });
   }
 
-  static selectedContinentsQuery() {
-    const selectedContinents = $('#continents_select').select2('data');
-    const selectedContinentsString = selectedContinents
-      .map((continent) => `${continent.id}`)
-      .join(',');
+  static selectedContinentQuery() {
+    const selectedContinent = $('#continent_select').val();
 
-    return selectedContinentsString
-      ? `/continent=${selectedContinentsString}`
-      : '';
+    return selectedContinent ? `/continent=${selectedContinent}` : '';
   }
 
   static selectedCountriesQuery() {

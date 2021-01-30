@@ -5,7 +5,7 @@ import WindyApiHelper from '../helpers/windy_api_helper';
 export default class extends Controller {
   static targets = [
     'webcams',
-    'continentsSelect',
+    'continentSelect',
     'countriesSelect',
     'categorySelect',
     'loadMore',
@@ -17,7 +17,7 @@ export default class extends Controller {
   ];
 
   connect() {
-    WindyApiHelper.getContinents(this.continentsSelectTarget);
+    WindyApiHelper.getContinents(this.continentSelectTarget);
     WindyApiHelper.getCountries(this.countriesSelectTarget);
     WindyApiHelper.getCategories(this.categorySelectTarget);
 
@@ -63,6 +63,7 @@ export default class extends Controller {
 
     this.searchLinkTarget.classList.remove('active');
     this.favouritesLinkTarget.classList.add('active');
+
     this.headingTarget.textContent = 'Favourite webcams';
 
     WindyApiHelper.getFavouriteWebcams(this.webcamsTarget, 0);
