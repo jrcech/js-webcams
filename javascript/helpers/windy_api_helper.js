@@ -14,7 +14,7 @@ export default class WindyApiHelper {
 
     axios({
       method: 'get',
-      url: `/list/limit=10,${offset}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}${this.selectedContinentQuery()}`,
+      url: `/list/limit=10,${offset}${this.checkedLiveQuery()}${this.selectedCategoryQuery()}${this.selectedCountriesQuery()}${this.selectedContinentQuery()}`,
       params: {
         show:
           'webcams:category,location,player,property,statistics;categories;properties;continents;countries',
@@ -70,7 +70,9 @@ export default class WindyApiHelper {
 
     webcams.forEach((webcam) => {
       const { title } = webcam;
+
       const player = webcam.player.day.embed;
+
       const categories = webcam.category
         .map((category) => `${category.name}`)
         .join(', ');
@@ -297,5 +299,9 @@ export default class WindyApiHelper {
     const selectedCategory = $('#category_select').val();
 
     return selectedCategory ? `/category=${selectedCategory}` : '';
+  }
+
+  static checkedLiveQuery() {
+    return $('#liveCheck').is(':checked') ? `/property=live` : '';
   }
 }

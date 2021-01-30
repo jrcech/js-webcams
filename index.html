@@ -98,13 +98,20 @@
           </select>
         </div>
 
-        <div class="col-12 mt-3">
+        <div class="col-12">
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" value="" id="liveCheck">
+            <label class="form-check-label" for="liveCheck">
+              Only live webcams
+            </label>
+          </div>
+
           <input
             type="submit"
             data-action="application#submit"
             data-application-target="submit"
             value="Search"
-            class="btn btn-primary"
+            class="btn btn-primary mt-3"
           />
         </div>
       </form>
