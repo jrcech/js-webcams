@@ -288,12 +288,9 @@ export default class WindyApiHelper {
   }
 
   static selectedCountriesQuery() {
-    const selectedCountries = $('#countries_select').select2('data');
-    const selectedCountriesString = selectedCountries
-      .map((country) => `${country.id}`)
-      .join(',');
+    const selectedCountries = $('#countries_select').select2('data')[0];
 
-    return selectedCountriesString ? `/country=${selectedCountriesString}` : '';
+    return selectedCountries ? `/country=${selectedCountries.id}` : '';
   }
 
   static selectedCategoryQuery() {
