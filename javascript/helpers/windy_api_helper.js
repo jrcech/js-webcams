@@ -4,7 +4,7 @@ import store from 'store2';
 const axios = require('axios');
 
 axios.defaults.baseURL = 'https://api.windy.com/api/webcams/v2';
-axios.defaults.headers['x-windy-key'] = 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d';
+axios.defaults.headers['x-windy-key'] = process.env.WINDY_API_KEY;
 
 export default class WindyApiHelper {
   static getWebcams(target, offset, submit) {
@@ -81,45 +81,76 @@ export default class WindyApiHelper {
         <div class="card mb-4">
           <div class="card-body row">
             <h2 class="card-title">${title}</h2>
+            
             <br>
             
             <div class="col">
-              <span class="card-text"><strong>City:</strong> ${
-                webcam.location.city
-              }</span><br>
-              <span class="card-text"><strong>Region:</strong> ${
-                webcam.location.region
-              }</span><br>
-              <span class="card-text"><strong>Country:</strong> ${
-                webcam.location.country
-              }</span><br>
-              <span class="card-text"><strong>Continent:</strong> ${
-                webcam.location.continent
-              }</span><br>
+              <span class="card-text">
+                <strong>City:</strong> ${webcam.location.city}
+              </span>
+              
+              <br>
+              
+              <span class="card-text">
+                <strong>Region:</strong> ${webcam.location.region}
+              </span>
+              
+              <br>
+              
+              <span class="card-text">
+                <strong>Country:</strong> ${webcam.location.country}
+              </span>
+              
+              <br>
+              
+              <span class="card-text">
+                <strong>Continent:</strong> ${webcam.location.continent}
+              </span>
+              
+              <br>
+              
             </div>
             
             <div class="col">
-              <span class="card-text"><strong>Category:</strong> ${categories}</span><br>
-              <span class="card-text"><strong>Views:</strong> ${
-                webcam.statistics.views
-              }</span><br>
-              <span class="card-text"><a href="${
-                webcam.location.wikipedia
-              }" target="_blank">Wikipedia</a></span><br>
+              <span class="card-text">
+                <strong>Category:</strong> ${categories}
+              </span>
+              
+              <br>
+              
+              <span class="card-text">
+                <strong>Views:</strong> ${webcam.statistics.views}
+              </span>
+              
+              <br>
+              
+              <span class="card-text">
+                <a
+                  href="${webcam.location.wikipedia}"
+                  target="_blank"
+                >
+                  Wikipedia
+                </a>
+              </span>
+              
+              <br>
+              
             </div>
             
             <div class="col">
-              <button class="btn btn-outline-${
-                favourites.includes(webcam.id) ? 'danger' : 'success'
-              } float-end" data-controller="favourite" data-action="favourite#toggleFavourite" data-favourite-saved="${
-        favourites.includes(webcam.id) ? 'true' : 'false'
-      }" data-favourite-webcam-id-value="${
-        webcam.id
-      }" data-favourite-css-class="active">${
-        favourites.includes(webcam.id)
-          ? 'Remove from favourites'
-          : 'Add to favourites'
-      }</button>
+              <button
+                class="btn float-end btn-outline-${
+                  favourites.includes(webcam.id) ? 'danger' : 'success'
+                }"
+                data-controller="favourite"
+                data-action="favourite#toggleFavourite"
+                data-favourite-saved="${!!favourites.includes(webcam.id)}"
+                data-favourite-webcam-id-value="${webcam.id}"
+              >
+                ${
+                  favourites.includes(webcam.id) ? 'Remove from' : 'Add to'
+                } favourites
+              </button>
             </div>
           </div>
           
