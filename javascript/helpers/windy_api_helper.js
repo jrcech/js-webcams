@@ -284,19 +284,19 @@ export default class WindyApiHelper {
   }
 
   static selectedContinentQuery() {
-    const selectedContinent = $('#continent_select').val();
+    const selectedContinent = $('#continentSelect').val();
 
     return selectedContinent ? `/continent=${selectedContinent}` : '';
   }
 
   static selectedCountriesQuery() {
-    const selectedCountries = $('#countries_select').select2('data')[0];
+    const selectedCountries = $('#countriesSelect').select2('data')[0];
 
     return selectedCountries ? `/country=${selectedCountries.id}` : '';
   }
 
   static selectedCategoryQuery() {
-    const selectedCategory = $('#category_select').val();
+    const selectedCategory = $('#categorySelect').val();
 
     return selectedCategory ? `/category=${selectedCategory}` : '';
   }
