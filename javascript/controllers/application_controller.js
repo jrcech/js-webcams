@@ -26,17 +26,21 @@ export default class extends Controller {
 
     this.webcamsTarget.innerHTML = '';
 
-    WindyApiHelper.getWebcams(this.webcamsTarget, 0);
+    this.submitTarget.disabled = true;
+
+    WindyApiHelper.getWebcams(this.webcamsTarget, 0, this.submitTarget);
   }
 
   loadMore(event) {
     event.preventDefault();
 
+    this.submitTarget.disabled = true;
+
     let offset = parseInt(this.loadMoreTarget.getAttribute("data-offset")) + 10;
 
     this.loadMoreTarget.remove();
 
-    WindyApiHelper.getWebcams(this.webcamsTarget, offset);
+    WindyApiHelper.getWebcams(this.webcamsTarget, offset, this.submitTarget);
   }
 
   loadFavourites(event) {

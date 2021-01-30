@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'https://api.windy.com/api/webcams/v2';
 axios.defaults.headers['x-windy-key'] = 'kiyhsHoiuKtjPM8aEjkWJ0xGL8WIOR5d';
 
 export default class WindyApiHelper {
-  static getWebcams(target, offset) {
+  static getWebcams(target, offset, submit) {
     history.pushState('', '', './');
 
     axios({
@@ -24,6 +24,9 @@ export default class WindyApiHelper {
     })
     .catch(error => {
       console.log(error);
+    })
+    .then(() => {
+      submit.disabled = false;
     });
   }
 
