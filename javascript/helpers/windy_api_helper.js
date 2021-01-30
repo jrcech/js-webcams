@@ -22,8 +22,6 @@ export default class WindyApiHelper {
     })
       .then((response) => {
         this.constructWebcamHTML(response, target, offset);
-
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -52,8 +50,6 @@ export default class WindyApiHelper {
       })
         .then((response) => {
           this.constructWebcamHTML(response, target, offset);
-
-          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -192,8 +188,6 @@ export default class WindyApiHelper {
         .then((response) => {
           this.constructOptions(target, response.data.result.continents);
           store('continents', JSON.stringify(response.data.result.continents));
-
-          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -226,8 +220,6 @@ export default class WindyApiHelper {
         .then((response) => {
           this.constructOptions(target, response.data.result.countries);
           store('countries', JSON.stringify(response.data.result.countries));
-
-          console.log(response);
         })
         .catch((error) => {
           console.log(error);
@@ -260,8 +252,6 @@ export default class WindyApiHelper {
         .then((response) => {
           this.constructOptions(target, response.data.result.categories);
           store('categories', JSON.stringify(response.data.result.categories));
-
-          console.log(response);
         })
         .catch((error) => {
           console.log(error);
