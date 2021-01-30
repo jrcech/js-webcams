@@ -108,12 +108,14 @@ export default class WindyApiHelper {
   }
 
   static getContinents(target) {
-    $('#continents_select').select2();
+    target.disabled = true;
 
     const storedContinents = JSON.parse(store.get("continents"));
 
     if (storedContinents) {
       this.constructOptions(target, storedContinents);
+
+      target.disabled = false;
     } else {
       axios({
         method: 'get',
@@ -130,17 +132,22 @@ export default class WindyApiHelper {
       })
       .catch(error => {
         console.log(error);
+      })
+      .then(() => {
+        target.disabled = false;
       });
     }
   }
 
   static getCountries(target) {
-    $('#countries_select').select2();
+    target.disabled = true;
 
     const storedCountries = JSON.parse(store.get("countries"));
 
     if (storedCountries) {
       this.constructOptions(target, storedCountries);
+
+      target.disabled = false;
     } else {
       axios({
         method: 'get',
@@ -157,15 +164,22 @@ export default class WindyApiHelper {
       })
       .catch(error => {
         console.log(error);
+      })
+      .then(() => {
+        target.disabled = false;
       });
     }
   }
 
   static getCategories(target) {
+    target.disabled = true;
+
     const storedCategories = JSON.parse(store.get("categories"));
 
     if (storedCategories) {
       this.constructOptions(target, storedCategories);
+
+      target.disabled = false;
     } else {
       axios({
         method: 'get',
@@ -182,6 +196,9 @@ export default class WindyApiHelper {
       })
       .catch(error => {
         console.log(error);
+      })
+      .then(() => {
+        target.disabled = false;
       });
     }
   }
