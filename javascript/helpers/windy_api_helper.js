@@ -59,10 +59,13 @@ export default class WindyApiHelper {
   static constructWebcamHTML(response, target, offset) {
     const webcamsContainer = target;
     const webcams = response.data.result.webcams;
+    const totalWebcams = response.data.result.total;
 
-    webcamsContainer.innerHTML += safeHTML`
-        <span>Number of webcams found: ${response.data.result.total}</span>
+    if (offset === 0) {
+      webcamsContainer.innerHTML += safeHTML`
+        <span>Number of webcams found: ${totalWebcams}</span>
       `
+    }
 
     webcams.forEach(webcam => {
       let title = webcam.title;
@@ -102,9 +105,11 @@ export default class WindyApiHelper {
       webcamsContainer.innerHTML += html;
     })
 
-    webcamsContainer.innerHTML += safeHTML`
-        <button data-action="application#loadMore" data-offset="${offset}" data-application-target="loadMore">Load more webcams</button>
+    if (totalWebcams - offset > 10) {
+      webcamsContainer.innerHTML += safeHTML`
+        <button data-action="application#loadMore" data-offset="${offset}" data-application-target="loadMore" class="btn btn-outline-secondary mb-5">Load more webcams</button>
       `
+    }
   }
 
   static getContinents(target) {
